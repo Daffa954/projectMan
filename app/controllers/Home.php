@@ -67,7 +67,7 @@ class Home extends Controller
             } else {
                 // Set a flash message for failed login attempt
                 Flasher::setFlash('Login failed', 'Invalid email or password', 'danger');
-                echo "<script>alert('gagal')</script>";
+                echo "<script>alert('gagal login')</script>";
             }
         }
 
