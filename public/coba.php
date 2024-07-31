@@ -1,14 +1,11 @@
 <?php
 require_once '../app/init.php';
 require_once "../app/models/Projects_model.php";
-
+session_start();
 $project = new Projects_model();
-$result = $project->cari($_GET['keyword']);
-if(!isset($_GET['keyword'])) {
-    echo"ok";
-    header("Location: " . BASEURL . "/home/index");
+$result = $project->cari($_GET['keyword'], $_SESSION['user']['id_user']);
 
-}
+
 ?>
 <?php for ($i = 0; $i < count($result); $i++) { ?>
     <?php if ($result[$i]['name'] !== null) { ?>

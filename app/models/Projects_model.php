@@ -15,8 +15,6 @@ class Projects_model
     public function pagination($activePage, $dataPerPage, $id_user)
     {
         $conn = $this->db->bukaKoneksi();
-
-
         $query = mysqli_query($conn, "SELECT * FROM $this->table");
         $row = mysqli_fetch_assoc($query);
         $allData = count($row);
@@ -41,46 +39,29 @@ class Projects_model
             $rows[] = $row;
         }
         $allData = count($rows);
-       
+
         $pageTotal = ceil($allData / $dataPerPage);
 
         return $pageTotal;
     }
 
-    public function getAllProjects()
+
+
+    public function cari($keyword, $id_user)
     {
-        $conn = $this->db->bukaKoneksi();
-        $sql = "SELECT * FROM $this->table";
-
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Prepare failed: ' . htmlspecialchars($conn->error));
-        }
-
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-        $projects = [];
-
-        while ($row = $result->fetch_assoc()) {
-            $projects[] = $row;
-        }
-
-        $stmt->close();
-        $this->db->tutupKoneksi($conn);
-
-        return $projects;
-    }
-
-    public function cari($keyword)
-    {
+        
         $conn = $this->db->bukaKoneksi();
 
+        // Sanitasi input untuk menghindari SQL injection
+        $keyword = mysqli_real_escape_string($conn, $keyword);
+        $id_user = intval($id_user); // Konversi user_id menjadi integer
 
-        $sql = "SELECT * FROM $this->table WHERE 
-    name LIKE '%$keyword%' OR
-    description LIKE '%$keyword%' 
-    ";
+        if (strlen($keyword) > 0) {
+            $sql = "SELECT * FROM $this->table WHERE user_id = $id_user AND (name LIKE '%$keyword%' OR description LIKE '%$keyword%')";
+        }else {
+            return $this->pagination(1, 10, $id_user);
+
+        }
 
         $result = mysqli_query($conn, $sql);
         $rows = [];
