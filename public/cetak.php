@@ -7,12 +7,18 @@ try {
     $mpdf->WriteHTML(
         '<h1>Hello world!</h1>
         <p>this is me</p>
+        <p>this is me</p>
+        <p>this is me</p>
+        <p>this is me</p>
+        <p>this is me</p>
+        <p>this is me</p>
         
-        ');
+        '
+    );
     $mpdf->Output();
 } catch (\Mpdf\MpdfException $e) {
     // Handle the error appropriately
-    echo  $e->getMessage();
+    echo $e->getMessage();
 }
 
 ?>
