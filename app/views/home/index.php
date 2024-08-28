@@ -181,9 +181,30 @@
         </form>
 
     </div>
-    <!-- list Project -->
     <div class="w-full mt-6">
         <p class="text-2xl font-bold text-[#070707]">My Project</p>
+
+        <!-- container project -->
+        <div class="grid grid-cols-1 mt-4 gap-4 md:grid md:grid-cols-4" id="container">
+            <?php for ($i = 0; $i < $data['dpp']; $i++) { ?>
+
+                <?php if ($data['projects'][$i]['name'] !== null) { ?>
+                    <div class=" w-full p-2 rounded-lg border-2 border-sky-500 ">
+                        <img src="<?= BASEURL ?>/img/66863230218b0.png" alt="" srcset="" class="w-full h-[240px]">
+                        <p class="ml-1 mt-1 mb-1"><?= $data['projects'][$i]['name'] ?></p>
+                        <a class="ml-1 mt-1 mb-1 text-slate-400"
+                            href="<?= BASEURL ?>/projects/seeDetails/<?= $data['projects'][$i]['id_project'] ?>">see details</a>
+                    </div>
+                <?php } ?>
+
+            <?php } ?>
+        </div>
+        <!-- container project -->
+
+    </div>
+    <!-- list Project -->
+    <div class="w-full mt-6">
+        <p class="text-2xl font-bold text-[#070707]">My Team Project</p>
 
         <!-- container project -->
         <div class="grid grid-cols-1 mt-4 gap-4 md:grid md:grid-cols-4" id="container">
